@@ -302,7 +302,7 @@ class LogStash::Outputs::ElasticSearchHTTP < LogStash::Outputs::Base
 
     begin
       response = issue_request('post', @bulk_url, body)
-    rescue EOFError => e
+    rescue EOFError
       @logger.warn("EOF while writing request or reading response header from elasticsearch",
                   :host => @hosts[@current_host_index])
       return # abort this flush
