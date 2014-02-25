@@ -138,7 +138,7 @@ class LogStash::Outputs::ElasticSearchHTTP < LogStash::Outputs::Base
     end
     
     if @host != nil
-      host = "#{@host}:#{@port}"
+      host = "#{auth}#{@host}:#{@port}"
       @hosts << host
     end
     @hosts = @hosts.uniq
