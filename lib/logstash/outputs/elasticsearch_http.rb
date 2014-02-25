@@ -13,6 +13,8 @@ require "stud/buffer"
 class LogStash::Outputs::ElasticSearchHTTP < LogStash::Outputs::Base
   include Stud::Buffer
 
+  DEFAULT_PORT = 9200
+
   config_name "elasticsearch_http"
   milestone 2
 
@@ -60,7 +62,7 @@ class LogStash::Outputs::ElasticSearchHTTP < LogStash::Outputs::Base
   config :host, :validate => :string, :deprecated => "You can use host_list instead." 
 
   # The port for Elasticsearch HTTP interface to use.
-  config :port, :validate => :number, :default => 9200, :deprecated => "You can use host_list instead."
+  config :port, :validate => :number, :default => DEFAULT_PORT, :deprecated => "You can use host_list instead."
 
   # The HTTP Basic Auth username used to access your elasticsearch server.
   config :user, :validate => :string, :default => nil
@@ -132,7 +134,7 @@ class LogStash::Outputs::ElasticSearchHTTP < LogStash::Outputs::Base
       if host.include? ':'
         host = "#{auth}#{host}"
       else
-        host = "#{auth}#{host}:9200"
+        host = "#{auth}#{host}:#{DEFAULT_PORT}"
       end
       @hosts << host
     end
